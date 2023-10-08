@@ -16,6 +16,10 @@ alert("Bienvenido al simulador de Créditos del Sweden Bank.");
 
 salida = prompt("Ingrese 1 para inciar o 0 para salir: ");
 
+if (salida === "0") {
+  alert("Saliendo...");
+}
+
 //Ciclo While para que el usuario puedan entra a realizar los calculos o pueda salir del simulador.
 
 while (salida != "0" && continuar != "2") {
