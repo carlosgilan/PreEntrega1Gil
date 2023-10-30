@@ -1,4 +1,4 @@
-//Sistema de simulador de creditos.
+//Sistema de simulador de creditos. Segunda Pre Entrega
 
 let montoDelCredito; //variable que guarda el monto del prestamo que ingresa el usuario.
 
