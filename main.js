@@ -8,16 +8,21 @@ let montoTotalDelCredito; //Se guarda el monto que termina pagando el usuario po
 
 let montoTotalDeCuotas; //Se guarda el monto total de cada cuota.s
 
-let salida; //Realiza la bandera al While para salir del simulador.
+let opcion; //Realiza la bandera al While para salir del simulador.
 
 let continuar; //Sirve como bandera para continuar en un segmento del programa.
 
-alert("Bienvenido al simulador de Créditos del Sweden Bank.");
+let usuario;
+let usuarioStorage = sessionStorage.getItem("usuario");
 
-salida = prompt("Ingrese 1 para inciar o 0 para salir: ");
-let opcion = prompt(
-  "1 - Solicitar un prestamo.\n2 - Credito para auto. \n3 - Seguros\n4 - Contactos"
-);
+if (usuarioStorage) {
+  usuario = usuarioStorage;
+  alert(`Bienvenid@ nuevamete: ${usuario}`);
+} else {
+  usuario = prompt("Ingrese su usuario");
+  alert(`Bienvenid@ por primera vez: ${usuario}`);
+  sessionStorage.setItem("usuario", usuario);
+}
 
 class Menu {
   constructor(opcion1, opcion2, opcion3, opcion4) {
@@ -29,182 +34,235 @@ class Menu {
 }
 
 const inicio = new Menu("1", "2", "3", "4");
-if (opcion === inicio.opcion1) {
-  alert("Sera dirigido para realizar el calculo de su prestamo");
-}
-if (opcion === inicio.opcion2) {
-  alert("Sera dirigido para solicitar un credito para auto");
-}
-if (opcion === inicio.opcion3) {
-  alert("Sera dirigido para hacer buscar un tipo de seguro");
-}
 
-while (opcion === inicio.opcion4) {
-  if (opcion === inicio.opcion4) {
-    alert(
-      "Nuestros telefonos de contacto son: \n 11-23458965 - 11-44568045 \nwww.swedenbank.com "
-    );
+opcion = document.getElementById("opcion");
+let botonOpciones = document.getElementById("btnOpcion");
+
+botonOpciones.addEventListener("click", () => {
+  if (opcion.value === inicio.opcion1) {
+    let div = document.createElement("div");
+    div.innerHTML = `<h3>Calculando prestamo...</h3>`;
+    document.body.append(div);
   }
-  break;
-}
-if (salida === "0") {
-  alert("Saliendo...");
-}
+});
 
-//Ciclo While para que el usuario puedan entra a realizar los calculos o pueda salir del simulador.
-
-while (salida != "0" && continuar != "2") {
-  if (opcion === inicio.opcion1) {
-    montoDelCredito = parseInt(
-      prompt("Ingresa el monto del credito que deseas solicitar.")
-    );
-
-    numeroDeCuotas = parseInt(
-      prompt(
-        "Ingresa el numero de cuotas por mes para realizar el pago del credito. Pueden ser: 6, 12, 18 ó 60 cuotas."
-      )
-    );
-
-    //Funcion que calcula el monto total a pagar por el dinero solicitado
-
-    let calcularMontoTotalDelCredito = (numeroDeCuotas) => {
-      if (numeroDeCuotas === 6) {
-        montoTotalDelCredito = montoDelCredito * 0.3 + montoDelCredito;
-        alert("El total a pagar es: " + montoTotalDelCredito);
-      } else if (numeroDeCuotas === 12) {
-        montoTotalDelCredito = montoDelCredito * 0.4 + montoDelCredito;
-        alert("El total a pagar es: " + montoTotalDelCredito);
-      } else if (numeroDeCuotas === 18) {
-        montoTotalDelCredito = montoDelCredito * 0.5 + montoDelCredito;
-        alert("El total a pagar es: " + montoTotalDelCredito);
-      } else if (numeroDeCuotas === 60) {
-        montoTotalDelCredito = montoDelCredito * 0.7 + montoDelCredito;
-        alert("El total a pagar es: " + montoTotalDelCredito);
-      } else {
-        alert("la opcion ingresada de ingresado no es valida.");
-      }
-    };
-
-    calcularMontoTotalDelCredito(numeroDeCuotas);
-
-    continuar = prompt(
-      "Ingrese la opcion 1 si desea continuar o la opcion 2 para salir"
-    );
-
-    if (continuar === "1") {
-      alert(
-        "Bien calcularemos en cuanto quedara la cuota por mes de su prestamo..."
-      );
-      let calcularCuotas = () => {
-        montoTotalDeCuotas = montoTotalDelCredito / numeroDeCuotas;
-        return montoTotalDeCuotas;
-      };
-      alert(
-        "El monto  total de la cuota a pagar por " +
-          numeroDeCuotas +
-          " meses es " +
-          calcularCuotas()
-      );
-    }
+botonOpciones.addEventListener("click", () => {
+  if (opcion.value === inicio.opcion2) {
+    let div = document.createElement("div");
+    div.innerHTML = "<h3>Calculando credito automotriz...</h3>";
+    document.body.append(div);
   }
-  if (opcion === inicio.opcion2) {
-    numeroDeCuotas = parseInt(
-      prompt(
-        "Ingresa el numero de cuotas por mes para realizar el pago del credito automotriz. Pueden ser: 6 0 12 cuotas"
-      )
-    );
+});
+botonOpciones.addEventListener("click", () => {
+  if (opcion.value === inicio.opcion3) {
+    let div = document.createElement("div");
+    div.innerHTML = `<h3>Buscando Seguro...</h3>
+    
+      
+      `;
 
-    if (numeroDeCuotas === "6") {
-      alert("El prestamo otorgado tendra una taza de interes del 20%");
-    } else if (numeroDeCuotas === "12") {
-      alert("El prestamo otorgado tendra una taza de interes del 40%");
-    }
-
-    montoDelCredito = parseInt(
-      prompt("Ingresa el monto del credito que deseas solicitar.")
-    );
-
-    let calcularMontoTotalDelCredito = (numeroDeCuotas) => {
-      if (numeroDeCuotas === 6) {
-        montoTotalDelCredito = montoDelCredito * 0.2 + montoDelCredito;
-        alert("El total a pagar es: " + montoTotalDelCredito);
-      } else if (numeroDeCuotas === 12) {
-        montoTotalDelCredito = montoDelCredito * 0.4 + montoDelCredito;
-        alert("El total a pagar es: " + montoTotalDelCredito);
-      } else {
-        alert("la opcion ingresada de ingresado no es valida.");
-      }
-    };
-
-    calcularMontoTotalDelCredito(numeroDeCuotas);
-
-    class PrestamoAuto {
-      constructor(numeroDeCuotas, montoTotalDelCredito) {
-        this.numeroDeCuotas = numeroDeCuotas;
-        this.montoTotalDelCredito = montoTotalDelCredito;
-      }
-    }
-
-    const prestamosAuto = [];
-
-    prestamosAuto.push(new PrestamoAuto(numeroDeCuotas, montoTotalDelCredito));
-
-    for (item of prestamosAuto) {
-      alert(
-        "El numero de cuotas es: " +
-          item.numeroDeCuotas +
-          " y el Monto total a pagar es: " +
-          item.montoTotalDelCredito
-      );
-    }
+    document.body.append(div);
   }
-  if (opcion === inicio.opcion3) {
+});
+
+botonOpciones.addEventListener("click", () => {
+  if (opcion.value === inicio.opcion4) {
+    let div = document.createElement("div");
+    div.innerHTML = `<h3>Nuestros datos de contacto son: </h3>
+    <h3> - 11-23458965</h3>
+    <h3> - 11-44568045</h3>
+    <h3> - www.swedenbank.com </h3>
+    <h3> Hasta la proxima... </h3>`;
+    document.body.append(div);
+  }
+});
+
+montoDelCredito = document.getElementById("totalCredito");
+numeroDeCuotas = document.getElementById("nroCuotas");
+
+let calcularMontoTotalDelCredito = () => {
+  botonOpciones.addEventListener("click", () => {
+    if (opcion === inicio.opcion1 && numeroDeCuotas.value === "6") {
+      montoTotalDelCredito =
+        montoDelCredito.value * 0.3 + parseFloat(montoDelCredito.value);
+      let div = document.createElement("div");
+      div.innerHTML = `<h3>El monto total a pagar de su credito es: ${montoTotalDelCredito}</h3>`;
+      document.body.append(div);
+    } else if (opcion === inicio.opcion1 && numeroDeCuotas.value === "12") {
+      montoTotalDelCredito =
+        montoDelCredito.value * 0.4 + parseFloat(montoDelCredito.value);
+      let div = document.createElement("div");
+      div.innerHTML = `<h3>El monto total a pagar de su credito es: ${montoTotalDelCredito}</h3>`;
+      document.body.append(div);
+    } else if (opcion === inicio.opcion1 && numeroDeCuotas.value === "18") {
+      montoTotalDelCredito =
+        montoDelCredito.value * 0.5 + parseFloat(montoDelCredito.value);
+      let div = document.createElement("div");
+      div.innerHTML = `<h3>El monto total a pagar de su credito es: ${montoTotalDelCredito}</h3>`;
+      document.body.append(div);
+    } else if (opcion === inicio.opcion1 && numeroDeCuotas.value === "60") {
+      montoTotalDelCredito =
+        montoDelCredito.value * 0.7 + parseFloat(montoDelCredito.value);
+      let div = document.createElement("div");
+      div.innerHTML = `<h3>El monto total a pagar de su credito es: ${montoTotalDelCredito}</h3>`;
+      document.body.append(div);
+    }
+  });
+};
+
+calcularMontoTotalDelCredito();
+
+class PrestamoAuto {
+  constructor(numeroDeCuotas, montoTotalDelCredito, montoTotalDeCuotas) {
+    this.numeroDeCuotas = numeroDeCuotas.value;
+    this.montoTotalDelCredito = montoTotalDelCredito;
+    this.montoTotalDeCuotas = montoTotalDeCuotas;
+  }
+}
+
+let calcularCreditoAutomotriz = () => {
+  botonOpciones.addEventListener("click", () => {
+    if (opcion.value === inicio.opcion2 && numeroDeCuotas.value === "6") {
+      montoTotalDelCredito =
+        montoDelCredito.value * 0.2 + parseInt(montoDelCredito.value);
+      montoTotalDeCuotas =
+        montoTotalDelCredito / parseInt(numeroDeCuotas.value);
+      const prestamosAuto = [];
+      prestamosAuto.push(
+        new PrestamoAuto(
+          numeroDeCuotas,
+          montoTotalDelCredito,
+          montoTotalDeCuotas
+        )
+      );
+      for (item of prestamosAuto) {
+        item.numeroDeCuotas.value;
+        item.montoTotalDelCredito;
+        item.montoTotalDeCuotas;
+      }
+      let div = document.createElement("div");
+      div.innerHTML = `
+      <h3>El prestamo otorgado tiene una taza del 20%</h3>
+      <h3>El numero de cuotas es: ${item.numeroDeCuotas}</h3>
+      <h3>El monto total es: ${item.montoTotalDelCredito}</h3>
+      <h3>El monto total de la cuota es: ${item.montoTotalDeCuotas}</h3>
+      `;
+      document.body.append(div);
+    } else if (
+      opcion.value === inicio.opcion2 &&
+      numeroDeCuotas.value === "12"
+    ) {
+      montoTotalDelCredito =
+        montoDelCredito.value * 0.4 + parseFloat(montoDelCredito.value);
+      montoTotalDeCuotas =
+        montoTotalDelCredito / parseInt(numeroDeCuotas.value);
+      const prestamosAuto = [];
+      prestamosAuto.push(
+        new PrestamoAuto(
+          numeroDeCuotas,
+          montoTotalDelCredito,
+          montoTotalDeCuotas
+        )
+      );
+      for (item of prestamosAuto) {
+        item.numeroDeCuotas.value;
+        item.montoTotalDelCredito;
+        item.montoTotalDeCuotas;
+      }
+      let div = document.createElement("div");
+      div.innerHTML = `
+      <h3>El prestamo otorgado tiene una taza del 40%</h3>
+      <h3>El numero de cuotas es: ${item.numeroDeCuotas}</h3>
+      <h3>El monto total es: ${item.montoTotalDelCredito}</h3>
+      <h3>El monto total de la cuota es: ${item.montoTotalDeCuotas}</h3>
+      `;
+      document.body.append(div);
+    }
+  });
+};
+
+calcularCreditoAutomotriz();
+
+let buscadorDeSeguros = document.getElementById("buscadorSeguros");
+
+botonOpciones.addEventListener("click", () => {
+  console.log("valor: ", opcion.value);
+  console.log("Botón clickeado");
+  console.log("Valor del botón:", botonOpciones.textContent);
+  console.log("Valor de buscadorDeSeguros:", buscadorDeSeguros.value);
+
+  if (opcion.value === inicio.opcion3) {
     const seguros = [
-      { nombre: "Seguro de vida" },
-      { nombre: "Seguro de hogar" },
-      { nombre: "Seguro para autos" },
+      { nombre: "seguro de vida" },
+      { nombre: "seguro de hogar" },
+      { nombre: "seguro para autos" },
     ];
+    localStorage.setItem("seguros", JSON.stringify(seguros));
+    let seg = localStorage.getItem("seguros");
+    console.log(JSON.parse(seg));
 
-    let bucadorSeguros = prompt(
-      "Buscador de seguros: \nIngresa el seguro que te gustaria contratar para saber si esta disponible\n- Seguro de vida\n- Seguro de hogar\n- Seguro contra incendios\n- Seguro para autos"
+    const seguro = seguros.find(
+      (item) => item.nombre === buscadorDeSeguros.value
     );
-
-    const seguro = seguros.find((item) => item.nombre === bucadorSeguros);
-
     if (seguro) {
-      alert(`
-        Seguro encontrado: ${seguro.nombre}`);
+      let div = document.createElement("div");
+      div.innerHTML = `
+       <h3>Seguro encontrado: ${seguro.nombre}</h3>
+       `;
+      document.body.append(div);
     } else {
-      alert("Seguro no encontrado");
+      let div = document.createElement("div");
+      div.innerHTML = `
+       <h3>Seguro no encontrado</h3>
+       `;
+      document.body.append(div);
     }
-    let respuesta = prompt(
-      "Por se el un cliente fiel te tenemos una sorpresa...\nIngresa si, si la quieres..."
-    );
 
-    if (respuesta === "Si".toLowerCase() || "Si".toUpperCase()) {
-      const seguros2 = [
-        "Seguro de vida",
-        "Seguro de hogar",
-        "Seguro para autos",
-      ];
-      const seguroAleatorio = () => {
-        let index = Math.floor(Math.random() * seguros2.length);
-        return seguros2[index];
-      };
-
-      alert(
-        "Te ganaste el siguiente seguro por 1 año totalmente gratis: " +
-          seguroAleatorio()
-      );
-    }
+    let div = document.createElement("div");
+    div.innerHTML = `
+       <h3>"Por ser el un cliente fiel te tenemos una sorpresa...un seguro sera escogido al azar para vos...</h3>
+       `;
+    document.body.append(div);
+    const seguros2 = ["Seguro de vida", "Seguro de hogar", "Seguro para autos"];
+    const seguroAleatorio = () => {
+      let index = Math.floor(Math.random() * seguros2.length);
+      return seguros2[index];
+    };
+    let div2 = document.createElement("div");
+    div.innerHTML = `
+        <h3> Te ganaste el siguiente seguro por 1 año totalmente gratis: ${seguroAleatorio()}</h3>
+          
+          `;
+    document.body.append(div2);
   }
-  if (continuar === "2") alert("Saliendo del simulador...");
+});
 
-  continuar;
+botonOpciones.addEventListener("click", () => {
+  if (opcion.value === "5") {
+    let div = document.createElement("div");
+    div.innerHTML = "<h3>Hasta la proxima, feliz dia...</h3>";
+    document.body.append(div);
+  }
+});
 
-  salida = prompt(
-    "Ingresa 1 para volver a calcular un prestamo o 0 para salir."
-  );
+const nuevosProductos = [
+  { id: 1, nombre: "Seguro de vida", descripcion: "Personas" },
+  { id: 2, nombre: "Seguro para autos", descripcion: "Autos" },
+  { id: 3, nombre: "Seguro contra incendios", descripcion: "Incendios" },
+  { id: 4, nombre: "Seguro de hogar", descripcion: "Hogar" },
+];
 
-  if (salida === "0") alert("Hasta la proxima...");
-}
+localStorage.setItem("NuevosProductos", JSON.stringify(nuevosProductos));
+let productos = localStorage.getItem("NuevosProductos");
+
+console.log(JSON.parse(productos));
+
+nuevosProductos.forEach((item) => {
+  let div = document.createElement("div");
+  div.innerHTML = `
+  <h2>Id: ${item.id}</h2>
+  <p>Nombre: ${item.nombre}</p>
+  <b>Descripcion: ${item.descripcion}</b>
+  `;
+  document.body.append(div);
+});
